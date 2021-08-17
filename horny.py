@@ -1,5 +1,5 @@
 # This is a comedic personal project
-# meant to make learning programming fun for me. 
+# meant to make learning programming fun for me.
 # Credits to my Girlfriend for giving me this dumb but fun idea.
 
 # This program detects whether your mouth is open or closed,
@@ -7,8 +7,10 @@
 
 # Handles video stream input
 import cv2 as cv
+
 # Handles Face Recognition and Landmark Prediction
 import dlib
+
 # Handles audio (stop and play)
 import vlc
 
@@ -39,10 +41,10 @@ while True:
 
     # Convert frame to grayscale
     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-    
+
     # Process grayscale images to detect the whole face
     faces = detector(gray)
-    
+
     for face in faces:
 
         x1 = face.left()
@@ -50,7 +52,7 @@ while True:
         y1 = face.top()
         y2 = face.bottom()
 
-        # After a face is detected, 
+        # After a face is detected,
         # Predict the 68 Facial Landmarks
         landmarks = predictor(gray, face)
 
@@ -63,7 +65,7 @@ while True:
             # Locate the position in the screen of the current landmark
             x = landmarks.part(n).x
             y = landmarks.part(n).y
-            
+
             # Top Lip Landmark = Point 62 out of 68
             # Bottom Lip Landmark = Point 66 out of 68
             if n == 62:
@@ -72,26 +74,26 @@ while True:
                 bottom_y = y
 
             # Face Outline
-            if n >= 0 and n <= 16: 
-                cv.circle(frame, (x, y), 2, (255, 0, 0), -1)
+            if n >= 0 and n <= 16:
+                cv.circle(frame, (x, y), 2, (0, 255, 0), -1)
             # Eyebrow
-            elif n >= 17 and n <= 26: 
+            elif n >= 17 and n <= 26:
                 cv.circle(frame, (x, y), 2, (0, 255, 0), -1)
             # Nose Bridge
-            elif n >= 27 and n <= 30: 
-                cv.circle(frame, (x, y), 2, (0, 0, 0), -1)
+            elif n >= 27 and n <= 30:
+                cv.circle(frame, (x, y), 2, (0, 255, 0), -1)
             # Nose Curve
-            elif n >= 31 and n <= 35: 
-                cv.circle(frame, (x, y), 2, (0, 229, 255), -1)
+            elif n >= 31 and n <= 35:
+                cv.circle(frame, (x, y), 2, (0, 255, 0), -1)
             # Eyes
-            elif n >= 36 and n <= 47: 
-                cv.circle(frame, (x, y), 2, (0, 0, 255), -1)
+            elif n >= 36 and n <= 47:
+                cv.circle(frame, (x, y), 2, (0, 255, 0), -1)
             # Outer Lip Outline
-            elif n >= 48 and n <= 59: 
-                cv.circle(frame, (x, y), 2, (255, 255, 0), -1)
-            #Inner Lip Outline
-            else: 
-                cv.circle(frame, (x, y), 2, (255, 255, 0), -1)
+            elif n >= 48 and n <= 59:
+                cv.circle(frame, (x, y), 2, (0, 255, 0), -1)
+            # Inner Lip Outline
+            else:
+                cv.circle(frame, (x, y), 2, (0, 255, 0), -1)
 
         # Calculate distance between
         # Top Lip and Bottom Lip
